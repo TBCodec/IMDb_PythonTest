@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages.BasePage import BasePage
 
-
 class HomePage(BasePage):
 
     LOGIN_BUTTON = (By.XPATH, "//*[@id=\"imdbHeader\"]//a[@href=\"/registration/signin?ref=nv_generic_lgin\"]")
@@ -16,9 +15,26 @@ class HomePage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
+
     def click_login(self):
         self.do_click(self.LOGIN_BUTTON)
 
     def getUserName(self):
         username = self.get_element_text(self.USER_NAME_FIELD)
         return username
+
+    def getUserFieldText(self):
+        return self.get_element_text(self.LOGIN_BUTTON)
+
+    def clickLogOutButton(self):
+        self.do_click(self.USER_NAME_FIELD)
+        list_of_profile = self.driver.find_elements_by_xpath("//*[@id=\"navUserMenu-contents\"]//a")
+        for element in list_of_profile:
+            if element.text == "Sign out":
+                element.click()
+
+    def clickUserNameButton(self):
+        self.do_click(self.USER_NAME_FIELD)
+
+    def clickAccountSetting(self):
+        self.do_click(self.ACCOUNT_SETTINGS_BUTTON)
